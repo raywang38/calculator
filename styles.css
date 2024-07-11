@@ -1,0 +1,28 @@
+.numpad {
+    display: flex;
+    max-width: 200px;
+    flex-wrap: wrap;
+}
+
+.numpad button {
+    width: 60px;
+    flex: auto;
+} 
+
+.bottompad {
+    display: flex;
+    max-width: 200px;
+}
+
+.bottompad button {
+    flex: auto;
+}
+
+.operators {
+    display: flex;
+    max-width: 200px;
+}
+
+.operators button {
+    flex: auto;
+}

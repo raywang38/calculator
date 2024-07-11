@@ -1,3 +1,7 @@
+let num1;
+let num2;
+let operator;
+
 function add(array) {
     return array.reduce((total, current) => {
         total += current;
@@ -26,4 +30,20 @@ function divide(array) {
     })
 }
 
-console.log(divide([4, 3, 2, 1]));
+function operate(num1, num2, operator) {
+    const array = [];
+    array.push(num1, num2)
+
+    switch(operator) {
+        case "+":
+            return add(array)
+        case "-":
+            return subtract(array)
+        case "*":
+            return multiply(array)
+        case "/":
+            return divide(array)
+    }
+}
+
+console.log(operate(4, 6, "*"))
