@@ -2,6 +2,29 @@ let num1;
 let num2;
 let operator;
 
+const numButtons = document.querySelectorAll(".numpad button")
+
+numButtons.forEach((numButton) => {
+    numButton.addEventListener("click", () => {
+        num1 = parseInt(numButton.textContent);
+        num2 = parseInt(numButton.textContent);
+    })
+})
+
+const operatorButtons = document.querySelectorAll(".operators button")
+
+operatorButtons.forEach((operatorButton) => {
+    operatorButton.addEventListener("click", () => {
+        if (operatorButton.textContent === "=") {
+            const displayField = document.querySelector(".displayField");
+            displayField.textContent = operate(num1, num2, operator);
+        }
+        else {
+            operator = operatorButton.textContent;
+        }
+    })
+})
+
 function add(array) {
     return array.reduce((total, current) => {
         total += current;
@@ -45,5 +68,3 @@ function operate(num1, num2, operator) {
             return divide(array)
     }
 }
-
-console.log(operate(4, 6, "*"))

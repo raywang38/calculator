@@ -1,28 +1,42 @@
-.numpad {
+.calculator {
     display: flex;
-    max-width: 200px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    height: 400px;
+    padding: 8px;
+    background-color:black;
+    border-radius: 3px;
+    margin: auto;
+    max-width: 500px;
 }
 
-.numpad button {
-    width: 60px;
-    flex: auto;
-} 
-
-.bottompad {
-    display: flex;
-    max-width: 200px;
+.displayField {
+    background-color:lightgray;
+    height: 60px;
+    border-width: 3px;
+    border-radius: 5px;
+    border-color:gray;
+    border-style: solid;
+    text-align: right;
+    font-size: 30px;
 }
 
-.bottompad button {
+.box {
+    display: flex;
+    flex: 1;
+}
+
+.container {
+    display: flex;
     flex: auto;
+    flex-direction: column;
 }
 
 .operators {
     display: flex;
-    max-width: 200px;
+    flex-direction: column;
+    flex: auto;
 }
 
-.operators button {
-    flex: auto;
+.button {
+    background-color: lightgray;
 }
