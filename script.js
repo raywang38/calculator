@@ -8,7 +8,10 @@ const numButtons = document.querySelectorAll(".numpad button")
 
 numButtons.forEach((numButton) => {
     numButton.addEventListener("click", () => {
-        if (numButton.textContent === "." && !(displayField.textContent.includes("."))) {
+        if (displayField.textContent.length >= 8) {
+            return;
+        }
+        else if (numButton.textContent === "." && !(displayField.textContent.includes("."))) {
             displayField.textContent += numButton.textContent;
             return;
         }
@@ -19,6 +22,11 @@ numButtons.forEach((numButton) => {
             displayField.textContent = displayField.textContent.slice(0, -1);
             return;
         }
+        else if (num1 === parseInt(displayField.textContent)) {
+            displayField.textContent = numButton.textContent;
+            return;
+        }
+
         displayField.textContent += numButton.textContent;          
     })
 })
@@ -29,7 +37,7 @@ operatorButtons.forEach((operatorButton) => {
     operatorButton.addEventListener("click", () => {
         if (operatorButton.textContent === "=") {
             num2 = parseFloat(displayField.textContent)
-            const total = operate(num1, num2, operator).toFixed(2) * 1;
+            const total = operate(num1, num2, operator).toFixed(4) * 1;
             displayField.textContent = total;
             num1 = total;
             operator = "";
@@ -66,6 +74,47 @@ topPadButtons.forEach((topPadButton) => {
             displayField.textContent = "";
         }
     })
+})
+
+function handleKey(key) {
+    if (displayField.textContent.length >= 8) {
+        return;
+    }
+    else if (num1 === parseInt(displayField.textContent)) {
+        displayField.textContent = key;
+    }
+    else if (!(isNaN(key))) {
+        displayField.textContent += key;
+    }
+    else if (key === "Backspace") {
+        displayField.textContent = displayField.textContent.slice(0, -1);
+    }
+    else if (key === "Enter") {
+        num2 = parseFloat(displayField.textContent)
+        const total = operate(num1, num2, operator).toFixed(4) * 1;
+        displayField.textContent = total;
+        num1 = total;
+        operator = "";
+    }
+    else if (key === "c") {
+        num1 = "";
+        num2 = "";
+        operator = "";
+        displayField.textContent = "";
+    }
+    else if (key === "." && !(displayField.textContent.includes("."))) {
+        displayField.textContent += key;
+    }
+    else if (["-", "+", "*", "/", "%"].includes(key)) {
+        num1 = parseFloat(displayField.textContent);
+        operator = key;
+        displayField.textContent = "";        
+    }
+}
+
+document.documentElement.addEventListener("keydown", (event) => {
+    handleKey(event.key);
+    event.preventDefault();
 })
 
 function add(array) {
