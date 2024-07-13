@@ -4,7 +4,21 @@ let operator;
 
 const displayField = document.querySelector(".displayField");
 
+const allButtons = document.querySelectorAll("button");
+
 const numButtons = document.querySelectorAll(".numpad button")
+
+allButtons.forEach((button) => {
+    const color = button.style.backgroundColor;
+
+    button.addEventListener("mouseenter", () => {
+        button.style.backgroundColor = "red";
+    })
+
+    button.addEventListener("mouseleave", () => {
+        button.style.backgroundColor = color;
+    })
+})
 
 numButtons.forEach((numButton) => {
     numButton.addEventListener("click", () => {
