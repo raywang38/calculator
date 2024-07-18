@@ -50,11 +50,7 @@ const operatorButtons = document.querySelectorAll(".operators button")
 operatorButtons.forEach((operatorButton) => {
     operatorButton.addEventListener("click", () => {
         if (operatorButton.textContent === "=") {
-            num2 = parseFloat(displayField.textContent)
-            const total = operate(num1, num2, operator).toFixed(4) * 1;
-            displayField.textContent = total;
-            num1 = total;
-            operator = "";
+            calculateEquation();
         }
         else {
             num1 = parseFloat(displayField.textContent);
@@ -82,10 +78,7 @@ topPadButtons.forEach((topPadButton) => {
             displayField.textContent = "";
         }
         else if (topPadButton.textContent === "AC") {
-            num1 = "";
-            num2 = "";
-            operator = "";
-            displayField.textContent = "";
+            clearField();
         }
     })
 })
@@ -94,29 +87,22 @@ function handleKey(key) {
     if (displayField.textContent.length >= 8) {
         return;
     }
-    else if (num1 === parseInt(displayField.textContent)) {
-        displayField.textContent = key;
-    }
-    else if (!(isNaN(key))) {
-        displayField.textContent += key;
-    }
     else if (key === "Backspace") {
         displayField.textContent = displayField.textContent.slice(0, -1);
     }
     else if (key === "Enter") {
-        num2 = parseFloat(displayField.textContent)
-        const total = operate(num1, num2, operator).toFixed(4) * 1;
-        displayField.textContent = total;
-        num1 = total;
-        operator = "";
+        calculateEquation();
     }
     else if (key === "c") {
-        num1 = "";
-        num2 = "";
-        operator = "";
-        displayField.textContent = "";
+        clearField();
     }
     else if (key === "." && !(displayField.textContent.includes("."))) {
+        displayField.textContent += key;
+    }
+    else if (num1 === parseInt(displayField.textContent)) {
+        displayField.textContent = key;
+    }
+    else if (!(isNaN(key))) {
         displayField.textContent += key;
     }
     else if (["-", "+", "*", "/", "%"].includes(key)) {
@@ -126,6 +112,21 @@ function handleKey(key) {
     }
 }
 
+function calculateEquation() {
+    num2 = parseFloat(displayField.textContent)
+    const total = operate(num1, num2, operator).toFixed(4) * 1;
+    displayField.textContent = total;
+    num1 = total;
+    operator = "";
+}
+
+function clearField() {
+    num1 = "";
+    num2 = "";
+    operator = "";
+    displayField.textContent = "";
+}
+
 document.documentElement.addEventListener("keydown", (event) => {
     handleKey(event.key);
     event.preventDefault();
@@ -133,45 +134,39 @@ document.documentElement.addEventListener("keydown", (event) => {
 
 function add(array) {
     return array.reduce((total, current) => {
-        total += current;
-        return total;
+        return total + current;
     })
 }
 
 function divide(array) {
     return array.reduce((total, current) => {
-        total /= current;
-        return total;
+        return total / current;
     })
 }
 
 function modulo(array) {
     return array.reduce((total, current) => {
-        total = total % current;
-        return total;
+        return total % current;
     })
 }
 
 function multiply(array) {
     return array.reduce((total, current) => {
-        total *= current;
-        return total;
+        return total * current;
     })
 }
 
-function subtract(array) {``
+function subtract(array) {
     return array.reduce((total, current) => {
-        total -= current;
-        return total;
+        return total - current;
     })
 }
 
 function operate(num1, num2, operator) {
-    const array = [];
-    array.push(num1, num2)
+    const array = [num1, num2];
 
     switch(operator) {
-        case "+":``
+        case "+":
             return add(array);
         case "-":
             return subtract(array);
